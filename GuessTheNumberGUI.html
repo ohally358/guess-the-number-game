@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #66c0e4;
+        }
+        #game-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(78, 3, 3, 0.836);
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Guess The Number Game</h1>
+        <p>I'm thinking of a number between 1 and 100.</p>
+        <input type="number" id="guess" placeholder="Enter your guess" min="1" max="100">
+        <button onclick="makeGuess()">Guess</button>
+        <p id="result"></p>
+        <p id="attempts"></p>
+    </div>
+
+    <script>
+        let numberToGuess = Math.floor(Math.random() * 100) + 1;
+        let numberOfTries = 0;
+
+        function makeGuess() {
+            const userGuess = parseInt(document.getElementById('guess').value, 10);
+            const result = document.getElementById('result');
+            const attempts = document.getElementById('attempts');
+
+            numberOfTries++;
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                result.textContent = "Please enter a valid number between 1 and 100.";
+            } else if (userGuess < numberToGuess) {
+                result.textContent = "Too low! Try again.";
+            } else if (userGuess > numberToGuess) {
+                result.textContent = "Too high! Try again.";
+            } else {
+                result.textContent = `Congratulations! You've guessed the number in ${numberOfTries} tries.`;
+            }
+
+            attempts.textContent = `Attempts: ${numberOfTries}`;
+        }
+    </script>
+</body>
+</html>
